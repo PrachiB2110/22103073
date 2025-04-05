@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Number Fetcher</title>
+  <style>
+    body { font-family: Arial; margin: 2rem; background: #f9f9f9; }
+    select, button { padding: 10px; margin: 10px 0; }
+    pre { background: #efefef; padding: 15px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>📊 Number Fetcher</h1>
+  <label for="numberType">Select Number Type:</label>
+  <select id="numberType">
+    <option value="p">Prime (p)</option>
+    <option value="f">Fibonacci (f)</option>
+    <option value="e">Even (e)</option>
+    <option value="r">Random (r)</option>
+  </select>
+  <button onclick="fetchNumbers()">Fetch Numbers</button>
+
+  <h3>📦 API Response:</h3>
+  <pre id="output">Waiting for request...</pre>
+
+  <script>
+    async function fetchNumbers() {
+      const type = document.getElementById("numberType").value;
+      try {
+        const res = await fetch(`/numbers/${type}`);
+        const data = await res.json();
+        document.getElementById("output").textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        document.getElementById("output").textContent = "Error fetching data.";
+      }
+    }
+  </script>
+</body>
+</html>
